@@ -1,6 +1,10 @@
 <?php
 namespace Beanstream;
 
+require 'Configuration.php';
+require 'Exception.php';
+
+
 /**
  * Main class to communicate with Beanstream gateway,
  * supports API ver. 1
@@ -14,7 +18,7 @@ class Messenger
      * 
      * @var string
      */
-    const BASE = 'https://www.beanstream.com/api/v1';
+    const BASE = 'https://beanstream.com/api/v1';
     
     /**
      * Auth string
@@ -23,6 +27,13 @@ class Messenger
      */
     protected $_auth;
     
+
+
+
+
+
+
+
     /**
      * Constructor
      * 
