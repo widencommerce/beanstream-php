@@ -5,6 +5,7 @@ require_once 'Exception.php';
 require_once 'Configuration.php';
 require_once 'api/Payments.php';
 require_once 'api/Profiles.php';
+require_once 'api/Reporting.php';
 require_once 'communications/Endpoints.php';
 require_once 'communications/HttpConnector.php';
 

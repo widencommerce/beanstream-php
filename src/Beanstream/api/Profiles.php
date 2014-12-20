@@ -2,7 +2,7 @@
 
 
 /**
- * Profiles class to handle profile and card actions,
+ * Profiles class to handle profile and card actions
  *  
  * @author Kevin Saliba
  */
