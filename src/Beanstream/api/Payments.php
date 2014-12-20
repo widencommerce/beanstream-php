@@ -1,7 +1,11 @@
 <?php 	namespace Beanstream;
 
 
-
+/**
+ * Payments class to handle payment actions,
+ *  
+ * @author Kevin Saliba
+ */
 class Payments {
 	
 	protected $_auth;

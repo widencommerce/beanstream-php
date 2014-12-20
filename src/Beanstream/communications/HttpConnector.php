@@ -56,12 +56,11 @@ class HttpConnector {
         curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($req, CURLOPT_TIMEOUT, 30);
         
-		//test ssl3
+		//test ssl3 (remember to set platform)
 		//curl_setopt($req, CURLOPT_SSLVERSION, 3);
 		
 		
 		//set http method
-		//TODO guard clause, but this is simple enough
         if (is_null($http_method)) {
             if (is_null($data)) {
                 $http_method = 'GET';

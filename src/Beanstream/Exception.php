@@ -16,4 +16,7 @@ namespace Beanstream;
  */
 class Exception extends \Exception
 {
+	
+	
+	
 }

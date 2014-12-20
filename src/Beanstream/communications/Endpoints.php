@@ -1,5 +1,10 @@
 <?php 	namespace Beanstream;
 
+/**
+ * Enpoints class to build, format and return api endpoint urls based on incoming platform and version
+ *  
+ * @author Kevin Saliba
+ */
 class Endpoints {
 	
 	//set base api endpoint with {0} platform variable
@@ -37,8 +42,9 @@ class Endpoints {
 
 		//profiles
 		$this->baseProfilesURL = self::BASE_URL . '/{1}/profiles';
-		$this->profilURI = $this->baseProfilesURL . '/{id}';
+		$this->profileURI = $this->baseProfilesURL . '/{2}';
 		$this->cardsURI = $this->profileURI . '/cards';
+		$this->cardURI = $this->cardsURI . '/{3}';
 
 		//reporting
 		$this->reportsURL = self::BASE_URL . '/{1}/reports';
@@ -108,6 +114,32 @@ class Endpoints {
 	
 	
 	
+	
+	
+	//profiles get a single profile by pid
+	public function getProfileURI($pid) {
+		
+		return msgfmt_format_message('en_US', $this->profileURI, array($this->_platform, $this->_version, $pid));
+		
+	}
+	
+	
+	
+	//profiles get the cards uri for this pid
+	public function getCardsURI($pid) {
+		
+		return msgfmt_format_message('en_US', $this->cardsURI, array($this->_platform, $this->_version, $pid));
+		
+	}
+	
+	
+	
+	//profiles get a single card based on a card id for this pid
+	public function getCardURI($pid, $cid) {
+		
+		return msgfmt_format_message('en_US', $this->cardURI, array($this->_platform, $this->_version, $pid, $cid));
+		
+	}
 	
 	
 	

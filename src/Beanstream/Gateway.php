@@ -1,6 +1,6 @@
 <?php	namespace Beanstream;
 
-
+//TODO implement loader
 require_once 'Exception.php';
 require_once 'Configuration.php';
 require_once 'api/Payments.php';
@@ -9,11 +9,10 @@ require_once 'communications/Endpoints.php';
 require_once 'communications/HttpConnector.php';
 
 
-
 /**
- * Main class to communicate with Beanstream gateway,
+ * Main class to facilitate comms with Beanstream gateway,
  *  
- * @author ks)
+ * @author Kevin Saliba
  */
 class Gateway
 {
@@ -36,38 +35,30 @@ class Gateway
     
 
 
-
 	protected $paymentsAPI; 
 	protected $profilesAPI; 
 	protected $reportingAPI; 
 
-
-
     /**
      * Constructor
      * 
-     * @param string $mid Merchant ID
-     * @param string $passcode API Access Passcode
+     * @param string $merchantId Merchant ID
+     * @param array $apiKeys API Access Passcodes 
+     * @param string $platform API Platform (default 'www')
+     * @param string $version API Version (default 'v1')
      */
-    public function __construct($merchantId = '', $apiKeys = NULL, $platform, $version)
-    {
-    	
+    public function __construct($merchantId = '', $apiKeys = array(), $platform, $version) {
 		//set configs
 		$this->_config = new Configuration();
 		$this->_config->setMerchantId($merchantId);
 		$this->_config->setApiKeys($apiKeys);
 		$this->_config->setPlatform($platform);
 		$this->_config->setApiVersion($version);
-		
     }
-    
 	
-
 	public function getConfig() {
 		return $this->_config;
 	}
-	
-	
 
 	public function getMerchantId() {
 		return $this->_config->getMerchantId();
@@ -78,17 +69,12 @@ class Gateway
 		return $this->getPaymentsApi();
 	}	
 
-
-
 	private function getPaymentsApi() {
 		if (is_null($this->paymentsAPI)) {
-			
 			$this->paymentsAPI = new Payments($this->_config);
 		}
 		return $this->paymentsAPI;
-		
 	}
-
 	
 		
 	public function profiles() {
@@ -97,21 +83,22 @@ class Gateway
 		
 	private function getProfilesApi() {
 		if (is_null($this->profilesAPI)) {
-			
 			$this->profilesAPI = new Profiles($this->_config);
 		}
 		return $this->profilesAPI;
-		
 	}
-
-	
 
 
 	public function reporting() {
-		return getReportingApi();
+		return $this->getReportingApi();
 	}	
 		
-
+	private function getReportingApi() {
+		if (is_null($this->reportingAPI)) {
+			$this->reportingAPI = new Reporting($this->_config);
+		}
+		return $this->reportingAPI;
+	}
 	
 	
 	
