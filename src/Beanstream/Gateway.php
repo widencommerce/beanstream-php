@@ -366,6 +366,7 @@ class Gateway
         $start_dt = new \DateTime(isset($data['end_date']) ? $data['end_date'] : null);
         $start_dt->modify('-1 day +1 second');
         $start_date = $start_dt->format('c');
+		
         $end_dt = new \DateTime(isset($data['start_date']) ? $data['start_date'] : $start_date);
         $end_dt->modify('+1 day');
         $end_date = $end_dt->format('c');

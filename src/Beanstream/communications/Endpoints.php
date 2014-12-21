@@ -33,7 +33,6 @@ class Endpoints {
 		//assign endpoints
 		//payments
 		$this->basePaymentsURL = self::BASE_URL . '/{1}/payments';
-		$this->getPaymentURL = $this->basePaymentsURL . '/{2}';
 		$this->preAuthCompletionsURL = $this->basePaymentsURL . '/{2}/completions';
 		$this->returnsURL = $this->basePaymentsURL . '/{2}/returns';
 		$this->voidsURL = $this->basePaymentsURL . '/{2}/void';
@@ -48,7 +47,7 @@ class Endpoints {
 
 		//reporting
 		$this->reportsURL = self::BASE_URL . '/{1}/reports';
-		
+		$this->getPaymentURL = $this->basePaymentsURL . '/{2}';
 		
 		
 		$this->_platform = $platform;
@@ -61,11 +60,6 @@ class Endpoints {
 	
 	
 	//payments
-	public function getPaymentUrl($paymentId) {
-		
-		return msgfmt_format_message('en_US', $this->getPaymentURL, array($this->_platform, $this->_version, $paymentId));
-		
-	}
 	
 	public function getBasePaymentsURL() {
 		
@@ -143,12 +137,18 @@ class Endpoints {
 	
 	
 	
-	//reports
-	public function getReportURL() {
+	//reporting
+	public function getReportingURL() {
 		
-		return $this->reportsURL;
+		return msgfmt_format_message('en_US', $this->reportsURL, array($this->_platform, $this->_version));
 	}
 	
+	
+	public function getPaymentUrl($tid) {
+		
+		return msgfmt_format_message('en_US', $this->getPaymentURL, array($this->_platform, $this->_version, $tid));
+		
+	}
 	
 	
 	

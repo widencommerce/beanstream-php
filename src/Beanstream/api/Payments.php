@@ -22,7 +22,7 @@ class Payments {
 		$this->_config = $config;
 		
 		//get encoded payments auth 
-		$this->_auth = base64_encode($this->_config->getMerchantId().':'.$this->_config->getApiKeys('payments'));
+		$this->_auth = base64_encode($this->_config->getMerchantId().':'.$this->_config->getApiKey('payments'));
 		
 		//init endpoint
 		$this->_endpoint = new Endpoints($this->_config->getPlatform(), $this->_config->getApiVersion());
@@ -45,7 +45,6 @@ class Payments {
 	
 	public function makeCardPayment($data = NULL, $complete = TRUE) {
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
-//		$endpoint = $this->_endpoint->getPaymentUrl($this->_config->getPlatform(),$this->_config->getApiVersion(), $paymentId);
 		
 		//force card
 		$data['payment_method'] = 'card';
@@ -238,6 +237,8 @@ class Payments {
 		
 	}
 	
+	
+		
 	
 	
 	
