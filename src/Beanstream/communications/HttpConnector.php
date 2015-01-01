@@ -1,16 +1,40 @@
 <?php 	namespace Beanstream;
 
+/**
+ * HTTPConnector class to handle HTTP requests to the REST API
+ *  
+ * @author Kevin Saliba
+ */
 class HttpConnector {
-	
+
+    /**
+     * Base64 Encoded Auth String
+     * 
+     * @var string $_auth
+     */
 	protected $_auth;
 	
 	
-	
+    /**
+     * Constructor
+     * 
+     * @param string $auth base64 encoded string to assign to the http header
+     */	
 	function __construct($auth) {
 		$this->_auth = $auth;
 	}
 	
 	
+    /**
+     * Public facing function to send a request to an endpoint.
+     * 
+     * @param	string	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
+     * @param	string	$url	Incoming API Endpoint
+	 * @param	array 	$data Data for POST requests, not needed for GETs
+     * @access	public
+	 * @return	array	Parsed API response from private request method
+	 * 
+     */
 	public function processTransaction($http_method, $endpoint, $data) {
 		
 		return $this->request($http_method, $endpoint, $data);
@@ -19,29 +43,23 @@ class HttpConnector {
 	}
 	
 	
-	
-	
-	
     /**
-     * Send request to a gateway.
+     * Internal function to send a request to an endpoint.
      * 
-     * This is a generic method, in most cases a specific
-     * one should be used, e.g. Messenger::createProfile()
-     * 
-     * @param string $url incoming endpoint 
-     * @param array[optional] $data Data to user with POST request, if not set GET request is used
-     * @param string[optional] $method HTTP method to use, by default is GET if there is no $data and PUT when there is $data set
-     * @return array Decoded API response
+     * @param	string|null	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
+     * @param	string $url	Incoming API Endpoint
+	 * @param	array|null	$data Data for POST requests, not needed for GETs
+     * @access	private
+	 * @return	array Parsed API response
+	 * 
      */
     private function request($http_method = NULL, $url, $data = NULL)
     {
     	//check to see if we have curl installed on the server 
         if ( ! extension_loaded('curl')) {
         	//no curl
-            throw new ConnectorException('The curl extension is required', 0);
+            throw new ConnectorException('The cURL extension is required', 0);
         }
-        
-		
 		
 		//init the curl request
 		//via endpoint to curl
@@ -61,8 +79,9 @@ class HttpConnector {
 		//test ssl3 (remember to set platform)
 		//curl_setopt($req, CURLOPT_SSLVERSION, 3);
 		
-		
 		//set http method
+		//default to GET if data is null
+		//default to POST if data is not null
         if (is_null($http_method)) {
             if (is_null($data)) {
                 $http_method = 'GET';
@@ -81,28 +100,20 @@ class HttpConnector {
         
 		//execute curl request
         $raw = curl_exec($req);
-		
+
 		
         if (false === $raw) { //make sure we got something back
             throw new ConnectorException(curl_error($req), -curl_errno($req));
         }
         
-		//var_dump($raw);die();
 		//decode the result
         $res = json_decode($raw, true);
         if (is_null($res)) { //make sure the result is good to go
             throw new ConnectorException('Unexpected response format', 0);
         }
         
-
-		
-
-		
 		//check for return errors from the API
         if (isset($res['code']) && 1 < $res['code'] && !($req['http_code'] >= 200 && $req['http_code'] < 300)) {
-			//return errors found
-            //
-            //TODO i don't like this, i'd rather return the raw error
             throw new ApiException($res['message'], $res['code']);
         }
         

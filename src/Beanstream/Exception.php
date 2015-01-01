@@ -2,7 +2,7 @@
 namespace Beanstream;
 
 /**
- * Beanstream specific exception type
+ * Beanstream specific exception types
  * 
  * Zero error code corresponds to PHP API specific errors
  * 
@@ -16,42 +16,52 @@ namespace Beanstream;
  */
 class Exception extends \Exception {
 	
-	protected $_code;
+	/**
+	 * Exception: Message class variable
+	 *
+	 * @var string $_message holds the human-readable error message string
+	 */
 	protected $_message;
 	
-	
+	/**
+	 * Exception: Code class variable
+	 *
+	 * @var int $_code holds the error message code (0=PHP, Positive=Beanstream API, Negative=cURL)
+	 */	protected $_code;
+	 
+	 
+
+    /**
+     * Constructor
+     * 
+     * @param string $message Human-readable exception message
+     * @param int $code Exception code (0=PHP[default], Positive=Beanstream API, Negative=cURL)
+     */
 	public function __construct($message, $code = 0) {
 		
+		//set class vars
 		$this->_message = $message;
 		$this->_code = $code;
 		
-		//echo $this->__toString();
-		
+		//send to super
 		parent::__construct($this->_message, $this->_code);
 		
-		
-		
 	}
 
-
-	
-	
 }
 
 
-
+/**
+ * ConfigurationException class 
+ */
 class ConfigurationException extends Exception {}
 
+/**
+ * ConnectorException class
+ */
 class ConnectorException extends Exception {}
 
-class ApiException extends Exception {
-	
-	public function __construct($message, $code = 0) {
-		
-		echo 'Api Exception: Code: '.$code.'; Message: \''.$message.'\'';
-		die();
-		
-	}
-	
-	
-}
+/**
+ * ApiException class
+ */
+class ApiException extends Exception {}
