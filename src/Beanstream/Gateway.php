@@ -32,8 +32,8 @@ class Gateway {
 	 * 
 	 * Holds API objects with appropriate config
 	 * 
-	 * @var	\Beanstream\Payments		$_paymentsAPI
-	 * @var	\Beanstream\Profiles		$_profilesAPI
+	 * @var	\Beanstream\Payments	$_paymentsAPI
+	 * @var	\Beanstream\Profiles	$_profilesAPI
 	 * @var	\Beanstream\Reporting 	$_reportingAPI
 	 */
 	protected $_paymentsAPI; 
