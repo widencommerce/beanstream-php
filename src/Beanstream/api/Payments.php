@@ -201,7 +201,7 @@ class Payments {
 
 		//check if we're good
 		if ( !isset($result['token']) ) { //no token received
-            throw new Exception('No Token Received', 0);
+            throw new ApiException('No Token Received', 0);
 		}
 		
 		//return token
@@ -214,7 +214,6 @@ class Payments {
 	
 	
 	public function makeLegatoTokenPayment($token, $data = NULL, $complete = TRUE) {
-		
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 
 		//force token
@@ -223,25 +222,13 @@ class Payments {
 		$data['token']['code'] = $token;
 		$data['token']['name'] = (isset($data['name']) ? $data['name'] : '');
 		$data['token']['complete'] = (is_bool($complete) === TRUE ? $complete : TRUE);
-		
-		//$data['merchant_id'] = $this->_config->getMerchantId();
-		
-
-
-		//print_r($data);die();
 
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
 		
 		
-		
-		
 	}
 	
-	
-		
-	
-	
-	
+
 		
 		
 }

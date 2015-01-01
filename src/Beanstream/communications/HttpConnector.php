@@ -13,7 +13,7 @@ class HttpConnector {
 	
 	public function processTransaction($http_method, $endpoint, $data) {
 		
-		return $this->request($endpoint, $http_method, $data);
+		return $this->request($http_method, $endpoint, $data);
 		
 			
 	}
@@ -33,14 +33,16 @@ class HttpConnector {
      * @param string[optional] $method HTTP method to use, by default is GET if there is no $data and PUT when there is $data set
      * @return array Decoded API response
      */
-    private function request($url, $http_method = NULL, $data = NULL)
+    private function request($http_method = NULL, $url, $data = NULL)
     {
     	//check to see if we have curl installed on the server 
         if ( ! extension_loaded('curl')) {
         	//no curl
-            throw new Exception('The curl extension is required', 0);
+            throw new ConnectorException('The curl extension is required', 0);
         }
         
+		
+		
 		//init the curl request
 		//via endpoint to curl
         $req = curl_init($url);
@@ -69,7 +71,7 @@ class HttpConnector {
             }
         }
 		
-		//set http method
+		//set http method in curl
         curl_setopt($req, CURLOPT_CUSTOMREQUEST, $http_method);
         
 		//make sure incoming payload is good to go, set it
@@ -79,22 +81,29 @@ class HttpConnector {
         
 		//execute curl request
         $raw = curl_exec($req);
+		
+		
         if (false === $raw) { //make sure we got something back
-            throw new Exception(curl_error($req), -curl_errno($req));
+            throw new ConnectorException(curl_error($req), -curl_errno($req));
         }
         
+		//var_dump($raw);die();
 		//decode the result
         $res = json_decode($raw, true);
         if (is_null($res)) { //make sure the result is good to go
-            throw new Exception('Unexpected response format', 0);
+            throw new ConnectorException('Unexpected response format', 0);
         }
         
+
+		
+
+		
 		//check for return errors from the API
-        if (isset($res['code']) and 1 < $res['code']) {
+        if (isset($res['code']) && 1 < $res['code'] && !($req['http_code'] >= 200 && $req['http_code'] < 300)) {
 			//return errors found
             //
             //TODO i don't like this, i'd rather return the raw error
-            //throw new Exception($res['message'], $res['code']);
+            throw new ApiException($res['message'], $res['code']);
         }
         
         return $res;
