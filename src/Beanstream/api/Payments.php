@@ -1,27 +1,58 @@
 <?php 	namespace Beanstream;
 
-
 /**
- * Payments class to handle payment actions,
+ * Payments class to handle payment actions
  *  
  * @author Kevin Saliba
  */
 class Payments {
-	
+
+    /**
+     * Base64 Encoded Auth String for Payments API
+     * 
+     * @var string $_auth
+     */
 	protected $_auth;
-	
+
+    /**
+     * Built Payments Endpoint 
+     * 
+     * @var string $_endpoint
+     */	
 	protected $_endpoint;
-	
+
+	/**
+     * Config object
+	 * 
+	 * Holds mid, apikeys[], platform, api version
+     * 
+     * @var	\Beanstream\Configuration	$_config
+     */
 	protected $_config;
-	
+
+	/**
+     * HttpConnector object
+	 * 
+     * @var	\Beanstream\HttpConnector	$_connector
+     */	
 	protected $_connector;
+
+
 	
+    /**
+     * Constructor
+     * 
+	 * Inits the appropriate endpoint and httpconnector objects 
+	 * Sets all of the Payments class properties
+	 * 
+     * @param \Beanstream\Configuration $config
+     */
 	function __construct(Configuration $config) {
 		
 		//get/set config
 		$this->_config = $config;
 		
-		//get encoded payments auth 
+		//set encoded payments auth 
 		$this->_auth = base64_encode($this->_config->getMerchantId().':'.$this->_config->getApiKey('payments'));
 		
 		//init endpoint
@@ -33,91 +64,116 @@ class Payments {
 	}
 	
 	
-	//generic payment
+    /**
+     * makePayment() function, generic payment (no payment_method forced), processed as is
+     * @link http://developer.beanstream.com/take-payments/
+     * 
+     * @param array $data Order data
+     * @return array Transaction details
+     */
 	public function makePayment($data = NULL) {
+		//build endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 		
 		//process as is
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
-		
 	}
-	
-	
-	public function makeCardPayment($data = NULL, $complete = TRUE) {
+
+    /**
+     * makeCardPayment() function, Card payment forced
+     * @link http://developer.beanstream.com/documentation/take-payments/purchases/card/
+     * 
+     * @param array $data Order data
+     * @param bool $complete Set to false for pre-auth, default to TRUE
+	 * @return array Transaction details
+     */	
+     public function makeCardPayment($data = NULL, $complete = TRUE) {
+		//build endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 		
 		//force card
 		$data['payment_method'] = 'card';
+		//set completion
 		$data['card']['complete'] = (is_bool($complete) === TRUE ? $complete : TRUE);
+
+		//process card payment
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
-	
-		
 	}
 	
     /**
-     * Pre-authorization completion
+     * complete() function, Pre-authorization completion
      * @link http://developer.beanstream.com/documentation/take-payments/pre-authorization-completion/
      * 
-     * @param string $oid Transaction Id
+     * @param string $transaction_id Transaction Id
      * @param mixed $amount Order amount
-     * @param string[optional] $order_number
+     * @param string $order_number
      * @return array Transaction details
      */
     public function complete($transaction_id, $amount, $order_number = NULL) {
     	
-		//get endpoint
+		//get endpoint for this tid
 		$endpoint =  $this->_endpoint->getPreAuthCompletionsURL($transaction_id);
 
+		//force complete to true
 		$data['card']['complete'] = TRUE;
+        
+        //set amount
         $data['amount'] = $amount;
+        
+		//set order number if received
         if ( ! is_null($order_number)) {
             $data['order_number'] = $order_number;
         }
 	
-		//print_r($endpoint); die();
-
+		//process completion (PAC)
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
-
     }
-    	
-	
-	
-	
-	
-	
-	
+
+    /**
+     * makeCashPayment() function, Cash payment forced
+     * @link http://developer.beanstream.com/documentation/take-payments/purchases/cash/
+     * 
+     * @param array $data Order data
+	 * @return array Transaction details
+     */		
 	public function makeCashPayment($data = NULL) {
+
+		//get endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 		
 		//force cash
 		$data['payment_method'] = 'cash';
-		return $this->_connector->processTransaction('POST', $endpoint, $data);
-	
 		
+		//process cash payment
+		return $this->_connector->processTransaction('POST', $endpoint, $data);
 	}	
-	
-	
-	
+
+    /**
+     * makeChequePayment() function, Cheque payment forced
+     * @link http://developer.beanstream.com/documentation/take-payments/purchases/cheque-purchases/
+     * 
+     * @param array $data Order data
+	 * @return array Transaction details
+     */	
 	public function makeChequePayment($data = NULL) {
+
+		//get endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 		
 		//force chq
 		$data['payment_method'] = 'cheque';
+
+		//process chq payment
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
-	
-		
 	}	
 	
-	
-	
-	
     /**
-     * Return (can't use reserved 'return' keyword for method name)
+     * returnPayment() function (aka refund, can't use reserved 'return' keyword for method name)
      * @link http://developer.beanstream.com/documentation/take-payments/return/
      * 
      * @param string $transaction_id Transaction Id
-     * @param mixed $amount Order amount
-     * @param string[optional] $order_number
+     * @param mixed $amount Order amount to return
+     * @param string $order_number for the return
      * @return array Transaction details
      */
     public function  returnPayment($transaction_id, $amount, $order_number = NULL) {
@@ -125,19 +181,20 @@ class Payments {
 		//get endpoint
 		$endpoint =  $this->_endpoint->getReturnsURL($transaction_id);
 
+        //set amount
         $data['amount'] = $amount;
+
+		//set order number if received
         if ( ! is_null($order_number)) {
             $data['order_number'] = $order_number;
         }
 	
+		//process return
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
-
-		
     }
-    	
 	
-	    /**
-     * Void (aka cancel)
+    /**
+     * voidPayment() function (aka cancel)
      * @link http://developer.beanstream.com/documentation/take-payments/voids/
      * 
      * @param string $transaction_id Transaction Id
@@ -148,55 +205,59 @@ class Payments {
     
 		//get endpoint
 		$endpoint =  $this->_endpoint->getVoidsURL($transaction_id);
-	
+
+        //set amount
 		$data['amount'] = $amount;
 	
-		//print_r($endpoint);die();
+		//process void
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
     }
-    
 	
-	
-	    /**
-     * Take payment - profile
+    /**
+     * makeProfilePayment() function, Take a payment via a profile
      * @link http://developer.beanstream.com/documentation/tokenize-payments/take-payment-profiles/
      * 
-     * @param string $pid Profile Id
-     * @param int $cid Card Id
+     * @param string $profile_id Profile Id
+     * @param int $card_id Card Id
      * @param array $data Order data
-     * @param bool[optional] $complete Set to false for pre-auth
+     * @param bool $complete Set to false for pre-auth, default to TRUE
      * @return array Transaction details
      */
     public function makeProfilePayment($profile_id, $card_id, $data, $complete = TRUE) {
-    	
+
+		//get endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 		
 		//force profile
 		$data['payment_method'] = 'payment_profile';
 		
+		//set profile array vars
 		$data['payment_profile'] = array(
                 'complete' => (is_bool($complete) === TRUE ? $complete : TRUE),
                 'customer_code' => $profile_id,
                 'card_id' => ''.$card_id,
             );
 			
+ 		//process payment via profile
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
     }
     
-	
-	
-	
-	
-	
-	
+    /**
+     * getTokenTest() function, obtains legato token (shouldn't be called ever but useful to have for testing)
+     * @link http://developer.beanstream.com/documentation/legato/server-to-server-integration-by-api/
+     * 
+     * @param array $data Order data
+     * @return string Legato token
+     */
 	public function getTokenTest($data = NULL) {
 		
+		//get endpoint
 		$endpoint =  $this->_endpoint->getTokenURL();
 		
 		//force token
 		$data['payment_method'] = 'token';
 
-		//get token
+		//get token result array
 		$result =  $this->_connector->processTransaction('POST', $endpoint, $data);
 
 		//check if we're good
@@ -204,31 +265,35 @@ class Payments {
             throw new ApiException('No Token Received', 0);
 		}
 		
-		//return token
+		//return Legato token
 		return $result['token'];
-		
-		
 	}
-		
-	
-	
-	
+
+    /**
+     * makeLegatoTokenPayment() function, Take a payment via a profile
+     * @link http://developer.beanstream.com/documentation/legato/server-to-server-integration-by-api/
+     * 
+     * @param string $token Legato token
+     * @param array $data Order data
+     * @param bool $complete Set to false for pre-auth, default to TRUE
+     * @return array Transaction details
+     */
 	public function makeLegatoTokenPayment($token, $data = NULL, $complete = TRUE) {
+
+		//get endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 
 		//force token
 		$data['payment_method'] = 'token';
-		//add token
+		
+		//add token vars
 		$data['token']['code'] = $token;
 		$data['token']['name'] = (isset($data['name']) ? $data['name'] : '');
 		$data['token']['complete'] = (is_bool($complete) === TRUE ? $complete : TRUE);
 
+ 		//process payment via Legato token
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
 		
-		
 	}
-	
-
-		
 		
 }
