@@ -106,7 +106,7 @@ class Endpoints {
 	/**
 	 * getPreAuthCompletionsURL() function.
 	 * 
-     * @param string $tid Transaction ID
+     * @param string $tid Transaction Id
 	 * @return string Endpoint URL
 	 */		
 	public function getPreAuthCompletionsURL($tid) {
@@ -117,7 +117,7 @@ class Endpoints {
 	/**
 	 * getReturnsURL() function.
 	 * 
-     * @param string $tid Transaction ID
+     * @param string $tid Transaction Id
 	 * @return string Endpoint URL
 	 */			
 	public function getReturnsURL($tid) {
@@ -128,7 +128,7 @@ class Endpoints {
 	/**
 	 * getVoidsURL() function.
 	 * 
-     * @param string $tid Transaction ID
+     * @param string $tid Transaction Id
 	 * @return string Endpoint URL
 	 */		
 	public function getVoidsURL($tid) {
@@ -162,7 +162,7 @@ class Endpoints {
 	/**
 	 * getProfileURI() function.
 	 * 
-     * @param string $pid Profile ID
+     * @param string $pid Profile Id
 	 * @return string Endpoint URL
 	 */
 	public function getProfileURI($pid) {
@@ -173,7 +173,7 @@ class Endpoints {
 	/**
 	 * getCardsURI() function.
 	 * 
-     * @param string $pid Profile ID
+     * @param string $pid Profile Id
 	 * @return string Endpoint URL
 	 */
 	public function getCardsURI($pid) {
@@ -184,8 +184,8 @@ class Endpoints {
 	/**
 	 * getCardURI() function.
 	 * 
-     * @param string $pid Profile ID
-     * @param string $cid Card ID
+     * @param string $pid Profile Id
+     * @param string $cid Card Id
 	 * @return string Endpoint URL
 	 */
 	public function getCardURI($pid, $cid) {
@@ -210,7 +210,7 @@ class Endpoints {
 	/**
 	 * getPaymentUrl() function.
 	 * 
-     * @param string $tid Transaction ID
+     * @param string $tid Transaction Id
 	 * @return string Endpoint URL
 	 */		
 	public function getPaymentUrl($tid) {
