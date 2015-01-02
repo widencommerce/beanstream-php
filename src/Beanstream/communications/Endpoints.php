@@ -195,7 +195,6 @@ class Endpoints {
 
 	
 	//reporting
-	
 
 	/**
 	 * getReportingURL() function.
