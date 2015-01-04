@@ -21,14 +21,12 @@ class Configuration {
      */
 	protected $_platform = 'www'; //default
 
-
     /**
      * Configuration: Merchant ID
      * 
      * @var string $_merchantId
      */
 	protected $_merchantId;
-
 
     /**
      * Configuration: API Keys
@@ -38,8 +36,6 @@ class Configuration {
 	protected $_apiKeys;
 
 
-
-
 	/**
 	 * setMerchantId() function
 	 *
@@ -47,7 +43,7 @@ class Configuration {
 	 * @return void
 	 */
 	public function setMerchantId($merchantId = '') {
-		//check to make sure we have a 9 digit string containing only digits 0-9
+		//check to make sure string strlen is 9 containing only digits 0-9
 		if (!preg_match('/^[0-9]{9}$/', $merchantId)) { //TODO switch to actual real assertmerchantId
 			//throw exception
 			throw new ConfigurationException('Invalid Merchant ID provided: '.$merchantId. ' Expected 9 digits.');
@@ -78,6 +74,7 @@ class Configuration {
 	public function setApiKeys($apiKeys = array()) {
 		$this->_apiKeys=$apiKeys;
 	}
+	
 	/**
 	 * getApiKey() function
 	 *
@@ -87,8 +84,6 @@ class Configuration {
 	public function getApiKey($key) {
 		return $this->_apiKeys[$key];
 	}
-
-
 
 	/**
 	 * setPlatform() function
@@ -113,7 +108,6 @@ class Configuration {
 		return $this->_platform;
 	}	
 	
-	
 	/**
 	 * setApiVersion() function
 	 * 
@@ -137,6 +131,4 @@ class Configuration {
 		return $this->_version;
 	}	
 	
-	
 }
-

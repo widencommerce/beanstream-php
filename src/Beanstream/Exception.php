@@ -1,13 +1,17 @@
-<?php
-namespace Beanstream;
+<?php	namespace Beanstream;
 
 /**
+ * Exception class
+ * 
  * Beanstream specific exception types
  * 
  * Zero error code corresponds to PHP API specific errors
  * 
  * Positive error codes correspond to those of Beanstream API
+ * @link http://developer.beanstream.com/documentation/take-payments/errors/
+ * @link http://developer.beanstream.com/documentation/analyze-payments/errors/
  * @link http://developer.beanstream.com/documentation/analyze-payments/api-messages/
+ * @link http://developer.beanstream.com/documentation/tokenize-payments/errors/
  * 
  * Negative error codes corresponde to those of cURL
  * @link http://curl.haxx.se/libcurl/c/libcurl-errors.html

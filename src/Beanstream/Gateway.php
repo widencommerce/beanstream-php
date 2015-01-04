@@ -3,15 +3,15 @@
 //TODO implement loader
 require_once 'Exception.php';
 require_once 'Configuration.php';
+require_once 'communications/Endpoints.php';
+require_once 'communications/HttpConnector.php';
 require_once 'api/Payments.php';
 require_once 'api/Profiles.php';
 require_once 'api/Reporting.php';
-require_once 'communications/Endpoints.php';
-require_once 'communications/HttpConnector.php';
 
 
 /**
- * Main class to facilitate comms with Beanstream Gateway,
+ * Gateway class - Main class to facilitate comms with Beanstream Gateway,
  *  
  * @author Kevin Saliba
  */
@@ -68,9 +68,8 @@ class Gateway {
 		return $this->_config;
 	}
 	
-	
 	/**
-	 * payments() function.
+	 * payments() function
 	 * 
 	 * Public facing function to return the configured payment API
 	 * All comms with the Payments API will go through this function
@@ -82,7 +81,7 @@ class Gateway {
 	}	
 
 	/**
-	 * getPaymentsApi() function.
+	 * getPaymentsApi() function
 	 * 
 	 * Internal function to return/create the payment object
 	 *
@@ -96,7 +95,6 @@ class Gateway {
 		}
 		return $this->_paymentsAPI;
 	}
-	
 
 	/**
 	 * profiles() function.
@@ -111,7 +109,7 @@ class Gateway {
 	}
 
 	/**
-	 * getProfilesApi() function.
+	 * getProfilesApi() function
 	 * 
 	 * Internal function to return/create the profiles object
 	 *
@@ -128,7 +126,7 @@ class Gateway {
 
 
 	/**
-	 * reporting() function.
+	 * reporting() function
 	 * 
 	 * Public facing function to return the configured reporting API
 	 * All comms with the Reporting API will go through this function
@@ -140,7 +138,7 @@ class Gateway {
 	}	
 
 	/**
-	 * getReportingApi() function.
+	 * getReportingApi() function
 	 * 
 	 * Internal function to return/create the reporting object
 	 *
@@ -154,6 +152,5 @@ class Gateway {
 		}
 		return $this->_reportingAPI;
 	}
-	
 	
 }

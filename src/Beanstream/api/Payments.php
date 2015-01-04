@@ -37,7 +37,6 @@ class Payments {
      */	
 	protected $_connector;
 
-
 	
     /**
      * Constructor
@@ -65,7 +64,7 @@ class Payments {
 	
 	
     /**
-     * makePayment() function, generic payment (no payment_method forced), processed as is
+     * makePayment() function - generic payment (no payment_method forced), processed as is
      * @link http://developer.beanstream.com/take-payments/
      * 
      * @param array $data Order data
@@ -80,7 +79,7 @@ class Payments {
 	}
 
     /**
-     * makeCardPayment() function, Card payment forced
+     * makeCardPayment() function - Card payment forced
      * @link http://developer.beanstream.com/documentation/take-payments/purchases/card/
      * 
      * @param array $data Order data
@@ -101,7 +100,7 @@ class Payments {
 	}
 	
     /**
-     * complete() function, Pre-authorization completion
+     * complete() function - Pre-authorization completion
      * @link http://developer.beanstream.com/documentation/take-payments/pre-authorization-completion/
      * 
      * @param string $transaction_id Transaction Id
@@ -130,7 +129,7 @@ class Payments {
     }
 
     /**
-     * makeCashPayment() function, Cash payment forced
+     * makeCashPayment() function - Cash payment forced
      * @link http://developer.beanstream.com/documentation/take-payments/purchases/cash/
      * 
      * @param array $data Order data
@@ -149,7 +148,7 @@ class Payments {
 	}	
 
     /**
-     * makeChequePayment() function, Cheque payment forced
+     * makeChequePayment() function - Cheque payment forced
      * @link http://developer.beanstream.com/documentation/take-payments/purchases/cheque-purchases/
      * 
      * @param array $data Order data
@@ -214,7 +213,7 @@ class Payments {
     }
 	
     /**
-     * makeProfilePayment() function, Take a payment via a profile
+     * makeProfilePayment() function - Take a payment via a profile
      * @link http://developer.beanstream.com/documentation/tokenize-payments/take-payment-profiles/
      * 
      * @param string $profile_id Profile Id
@@ -243,7 +242,7 @@ class Payments {
     }
     
     /**
-     * getTokenTest() function, obtains legato token (shouldn't be called ever but useful to have for testing)
+     * getTokenTest() function - obtains legato token (shouldn't be called ever but useful to have for testing)
      * @link http://developer.beanstream.com/documentation/legato/server-to-server-integration-by-api/
      * 
      * @param array $data Order data
@@ -270,7 +269,7 @@ class Payments {
 	}
 
     /**
-     * makeLegatoTokenPayment() function, Take a payment via a profile
+     * makeLegatoTokenPayment() function - Take a payment via a profile
      * @link http://developer.beanstream.com/documentation/legato/server-to-server-integration-by-api/
      * 
      * @param string $token Legato token

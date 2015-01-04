@@ -8,20 +8,51 @@
  */
 class Reporting {
 	
+    /**
+     * Base64 Encoded Auth String for Reporting API
+     * 
+     * @var string $_auth
+     */
 	protected $_auth;
-	
+
+    /**
+     * Built Reporting Endpoint 
+     * 
+     * @var string $_endpoint
+     */	
 	protected $_endpoint;
-	
+
+	/**
+     * Config object
+	 * 
+	 * Holds mid, apikeys[], platform, api version
+     * 
+     * @var	\Beanstream\Configuration	$_config
+     */
 	protected $_config;
-	
+
+	/**
+     * HttpConnector object
+	 * 
+     * @var	\Beanstream\HttpConnector	$_connector
+     */	
 	protected $_connector;
 	
+	
+    /**
+     * Constructor
+     * 
+	 * Inits the appropriate endpoint and httpconnector objects 
+	 * Sets all of the Reporting class properties
+	 * 
+     * @param \Beanstream\Configuration $config
+     */
 	function __construct(Configuration $config) {
 		
 		//get/set config
 		$this->_config = $config;
 		
-		//get encoded payments auth 
+		//get encoded reporting auth 
 		$this->_auth = base64_encode($this->_config->getMerchantId().':'.$this->_config->getApiKey('reporting'));
 		
 		//init endpoint
@@ -33,8 +64,14 @@ class Reporting {
 	}
 	
 	
-	
-	//get transactions based on criteria
+	//
+    /**
+     * getTransactions() function - Get transactions result array based on search criteria
+     * @link http://developer.beanstream.com/analyze-payments/search-specific-criteria/
+     * 
+     * @param array $data search criteria
+     * @return array Result Transactions
+     */
 	public function getTransactions($data) {
 		        
 		//get reporting endpoint
@@ -45,31 +82,30 @@ class Reporting {
 
 		//send back the result
         return $result;
-		
 	}
 	
-	
-	
-	//get a single transaction via 'Search'
-	//TODO not exactly working, returning call help desk, but all is ok
+    /**
+     * getTransaction() function - get a single transaction via 'Search'
+	 * 	//TODO not exactly working, returning call help desk, but incoming payload seems ok
+     * @link http://developer.beanstream.com/documentation/analyze-payments/
+     * 
+     * @param string $transaction_id Transaction Id
+     * @return array Transaction data
+     */	
 	public function getTransaction($transaction_id = '') {
 		        
 		//get reporting endpoint
 		$endpoint =  $this->_endpoint->getPaymentUrl($transaction_id);
 
+		//DEBUG
 		//print_r($endpoint);die();
 				
 		//process as is
 		$result = $this->_connector->processTransaction('GET', $endpoint, NULL);
 
-
 		//send back the result
         return $result;
 		
 	}
-	
-	
-	
-	
 	
 }

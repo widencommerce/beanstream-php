@@ -94,7 +94,7 @@ class Endpoints {
 	//payments
 	
 	/**
-	 * getBasePaymentsURL() function.
+	 * getBasePaymentsURL() function
 	 * 
 	 * @return string	Endpoint URL
 	 */	
@@ -104,7 +104,7 @@ class Endpoints {
 	}
 	
 	/**
-	 * getPreAuthCompletionsURL() function.
+	 * getPreAuthCompletionsURL() function
 	 * 
      * @param string $tid Transaction Id
 	 * @return string Endpoint URL
@@ -115,7 +115,7 @@ class Endpoints {
 	}
 
 	/**
-	 * getReturnsURL() function.
+	 * getReturnsURL() function
 	 * 
      * @param string $tid Transaction Id
 	 * @return string Endpoint URL
@@ -126,7 +126,7 @@ class Endpoints {
 	}
 
 	/**
-	 * getVoidsURL() function.
+	 * getVoidsURL() function
 	 * 
      * @param string $tid Transaction Id
 	 * @return string Endpoint URL
@@ -137,7 +137,7 @@ class Endpoints {
 	}
 	
 	/**
-	 * getTokenURL() function.
+	 * getTokenURL() function
 	 * 
 	 * @return string Endpoint URL
 	 */		
@@ -150,7 +150,7 @@ class Endpoints {
 	//profiles
 	
 	/**
-	 * getProfilesURL() function.
+	 * getProfilesURL() function
 	 * 
 	 * @return string Endpoint URL
 	 */
@@ -160,7 +160,7 @@ class Endpoints {
 	}
 	
 	/**
-	 * getProfileURI() function.
+	 * getProfileURI() function
 	 * 
      * @param string $pid Profile Id
 	 * @return string Endpoint URL
@@ -171,7 +171,7 @@ class Endpoints {
 	}
 	
 	/**
-	 * getCardsURI() function.
+	 * getCardsURI() function
 	 * 
      * @param string $pid Profile Id
 	 * @return string Endpoint URL
@@ -182,7 +182,7 @@ class Endpoints {
 	}
 	
 	/**
-	 * getCardURI() function.
+	 * getCardURI() function
 	 * 
      * @param string $pid Profile Id
      * @param string $cid Card Id
@@ -197,7 +197,7 @@ class Endpoints {
 	//reporting
 
 	/**
-	 * getReportingURL() function.
+	 * getReportingURL() function
 	 * 
 	 * @return string Endpoint URL
 	 */
@@ -207,7 +207,7 @@ class Endpoints {
 	}
 
 	/**
-	 * getPaymentUrl() function.
+	 * getPaymentUrl() function
 	 * 
      * @param string $tid Transaction Id
 	 * @return string Endpoint URL

@@ -14,19 +14,19 @@ class HttpConnector {
      */
 	protected $_auth;
 	
-	
     /**
      * Constructor
      * 
      * @param string $auth base64 encoded string to assign to the http header
      */	
 	function __construct($auth) {
+		//set auth for this connection only
 		$this->_auth = $auth;
 	}
 	
 	
     /**
-     * Public facing function to send a request to an endpoint.
+     * processTransaction() function - Public facing function to send a request to an endpoint.
      * 
      * @param	string	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
      * @param	string	$url	Incoming API Endpoint
@@ -36,15 +36,13 @@ class HttpConnector {
 	 * 
      */
 	public function processTransaction($http_method, $endpoint, $data) {
-		
+		//call internal request function
 		return $this->request($http_method, $endpoint, $data);
-		
-			
 	}
 	
 	
     /**
-     * Internal function to send a request to an endpoint.
+     * request() function - Internal function to send a request to an endpoint.
      * 
      * @param	string|null	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
      * @param	string $url	Incoming API Endpoint
@@ -76,7 +74,8 @@ class HttpConnector {
         curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($req, CURLOPT_TIMEOUT, 30);
         
-		//test ssl3 (remember to set platform)
+		//test ssl3 (remember to set platform to 'ssltest')
+		//should no longer work after 01/01/2015
 		//curl_setopt($req, CURLOPT_SSLVERSION, 3);
 		
 		//set http method
@@ -119,6 +118,5 @@ class HttpConnector {
         
         return $res;
     }	
-	
 	
 }
