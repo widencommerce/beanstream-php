@@ -85,7 +85,7 @@ $payment_data = array(
 	        'country' => 'CA'
 		)
 );
-$complete = TRUE; //used for P/PA/PAC
+$complete = TRUE; //set to FALSE for PA
 
 //Try to submit a Card Payment
 try {
