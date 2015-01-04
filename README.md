@@ -38,13 +38,11 @@ from Beanstream.
 ```php
 <?php
 
-//Initialize SDK Settings to use with REST API
-//See Beanstream Dashboard > Administration > Account Settings > Order Settings
 $merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
 $api_keys = array(
-	'payments' => '', //INSERT PAYMENTS API KEY
-	'profiles' => '', //INSERT PROFILES API KEY
-	'reporting' => '' //INSERT REPORTING API KEY
+	'payments' => '', //INSERT PAYMENTS API KEY (if required)
+	'profiles' => '', //INSERT PROFILES API KEY (if required)
+	'reporting' => '' //INSERT REPORTING API KEY (if required)
 	);
 $api_version = 'v1'; //default
 $platform = 'www'; //default
@@ -113,11 +111,12 @@ See examples.php for more examples.
 
 ### Authentication
 
-Beansteam defines separate API access passcodes for payment, profile and search requests. It is possible though
-to use same value for all of them, so one should either initialize seperate *\Beanstream\Messanger* instance
-for each request type or configure API passcodes in Beansteam merchant panel to be the same (see
-*administration -> account settings -> order settings* for payment and search passcodes,
-*configuration -> payment profile configuration* for profile passcode).
+Beansteam defines separate API access passcodes for payment, profile and search requests. API Passcodes
+are configured via the Beanstream dashboard (See *administration -> account settings -> order settings* 
+for payment and search passcodes, *configuration -> payment profile configuration* for profile passcode)
+If you do not wish to use certain API features, you may leave that API Passcode blank in the $api_keys
+array. You can also initialize separate Beanstream\Gateway instances for each type of request.
+
 
 ### Billing Address Province
 
