@@ -17,11 +17,13 @@ The recommended way to install the library is using [Composer](https://getcompos
 
 ## Handling Exceptions
 
-If server returns an unexpected response or error, PHP API throws *\Beanstream\Exception*.
+If the server returns an unexpected response or error, PHP API throws *\Beanstream\Exception*.
+
 Positive error codes correspond to Beanstream API errors, see
 [Take Payment Errors](http://developer.beanstream.com/documentation/take-payments/errors/),
 [Analyze Payment Errors](http://developer.beanstream.com/documentation/analyze-payments/errors/),
 [Tokenize Payments Errors](http://developer.beanstream.com/documentation/tokenize-payments/errors/).
+
 Negative codes correspond to [cURL errors](http://curl.haxx.se/libcurl/c/libcurl-errors.html)
 (original cURL error codes are positive, in *\Beanstream\Exception* those are just reversed).
 Exception with zero error code are PHP API specific, e.g. *The curl extension is required* or
@@ -61,27 +63,7 @@ $payment_data = array(
             'expiry_month' => '07',
             'expiry_year' => '22',
             'cvd' => '123'
-        ),
-	    'billing' => array(
-	        'name' => 'Billing Name',
-	        'email_address' => 'email@email.com',
-	        'phone_number' => '1234567890',
-	        'address_line1' => '456-123 Billing St.',
-	        'city' => 'Billingsville',
-	        'province' => 'BC',
-	        'postal_code' => 'V8J9I5',
-	        'country' => 'CA'
-		),
-	    'shipping' => array(
-	        'name' => 'Shipping Name',
-	        'email_address' => 'email@email.com',
-	        'phone_number' => '1234567890',
-	        'address_line1' => '789-123 Shipping St.',
-	        'city' => 'Shippingsville',
-	        'province' => 'BC',
-	        'postal_code' => 'V8J9I5',
-	        'country' => 'CA'
-		)
+        )
 );
 $complete = TRUE; //set to FALSE for PA
 
@@ -111,10 +93,11 @@ See examples.php for more examples.
 
 ### Authentication
 
-Beansteam defines separate API access passcodes for payment, profile and search requests. API Passcodes
+Beanstream defines separate API access passcodes for payment, profile and search requests. API Passcodes
 are configured via the Beanstream dashboard (See *administration -> account settings -> order settings* 
-for payment and search passcodes, *configuration -> payment profile configuration* for profile passcode)
-If you do not wish to use certain API features, you may leave that API Passcode blank in the $api_keys
+for payment and search passcodes, *configuration -> payment profile configuration* for profile passcode).
+API passcodes are held in the $api_keys array as values for the follwing keys 'payments', 'profiles', 'reporting'.
+If you do not wish to use certain API features, you may leave that specific API Passcode blank in the $api_keys
 array. You can also initialize separate Beanstream\Gateway instances for each type of request.
 
 
