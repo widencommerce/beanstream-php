@@ -175,7 +175,7 @@ class Payments {
      * @param string $order_number for the return
      * @return array Transaction details
      */
-    public function  returnPayment($transaction_id, $amount, $order_number = NULL) {
+    public function returnPayment($transaction_id, $amount, $order_number = NULL) {
 
 		//get endpoint
 		$endpoint =  $this->_endpoint->getReturnsURL($transaction_id);
