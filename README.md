@@ -37,25 +37,64 @@ from Beanstream.
 
 ```php
 <?php
-$bm = new \Beanstream\Messanger(YOUR_MERCHANT_ID, YOUR_API_PASSCODE);
 
-try {
-    $ts = $bm->payment(array(
-        'order_number' => '100001234',
-        'amount' => 100.00,
+//Initialize SDK Settings to use with REST API
+//See Beanstream Dashboard > Administration > Account Settings > Order Settings
+$merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
+$api_keys = array(
+	'payments' => '', //INSERT PAYMENTS API KEY
+	'profiles' => '', //INSERT PROFILES API KEY
+	'reporting' => '' //INSERT REPORTING API KEY
+	);
+$api_version = 'v1'; //default
+$platform = 'www'; //default
+
+//Create Beanstream Gateway
+$beanstream = new Beanstream\Gateway($merchant_id, $api_keys, $platform, $api_version);
+
+//Example Card Payment Data
+$payment_data = array(
+        'order_number' => 1234567890,
+        'amount' => 1.00,
         'payment_method' => 'card',
         'card' => array(
-            'name' => 'John Doe',
-            'number' => '5100000010001004',
-            'expiry_month' => '02',
-            'expiry_year' => '17',
+            'name' => 'Mr. Card Testerson',
+            'number' => '4030000010001234',
+            'expiry_month' => '07',
+            'expiry_year' => '22',
             'cvd' => '123'
-        )
-    ));
+        ),
+	    'billing' => array(
+	        'name' => 'Billing Name',
+	        'email_address' => 'email@email.com',
+	        'phone_number' => '1234567890',
+	        'address_line1' => '456-123 Billing St.',
+	        'city' => 'Billingsville',
+	        'province' => 'BC',
+	        'postal_code' => 'V8J9I5',
+	        'country' => 'CA'
+		),
+	    'shipping' => array(
+	        'name' => 'Shipping Name',
+	        'email_address' => 'email@email.com',
+	        'phone_number' => '1234567890',
+	        'address_line1' => '789-123 Shipping St.',
+	        'city' => 'Shippingsville',
+	        'province' => 'BC',
+	        'postal_code' => 'V8J9I5',
+	        'country' => 'CA'
+		)
+);
+$complete = TRUE; //used for P/PA/PAC
+
+//Try to submit a Card Payment
+try {
+
+	$result = $beanstream->payments()->makeCardPayment($payment_data, $complete);
     
     /*
      * Handle successful transaction, payment method returns
-     * transaction details as result, so $ts contains that data
+     * transaction details as result, so $result contains that data
      * in the form of associative array.
      */
 } catch (\Beanstream\Exception $e) {
@@ -67,6 +106,8 @@ try {
      */
 }
 ```
+
+See examples.php for more examples.
 
 ## Tips
 
