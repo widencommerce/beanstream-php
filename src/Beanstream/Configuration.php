@@ -29,12 +29,11 @@ class Configuration {
 	protected $_merchantId;
 
     /**
-     * Configuration: API Keys
+     * Configuration: API Key
      * 
-     * @var string[] $_apiKeys
+     * @var string $_apiKey
      */
-	protected $_apiKeys;
-
+	protected $_apiKey;
 
 	/**
 	 * setMerchantId() function
@@ -62,33 +61,28 @@ class Configuration {
 
 
 	/**
-	 * setApiKeys() function
+	 * setApiKey() function
 	 * 
-	 * Takes in an array of keys 'payments', 'profiles', 'reporting'
-	 * and string values for each key. Not every key is needed, only
-	 * those being used/set in Beanstream Dashboard > Order Settings.
-	 *
-	 * @param string[] $apiKeys
+	 * @param string $apiKey
 	 * @return void
 	 */
-	public function setApiKeys($apiKeys = array()) {
-		$this->_apiKeys=$apiKeys;
+	public function setApiKey($apiKey) {
+		$this->_apiKey=$apiKey;
 	}
 	
 	/**
 	 * getApiKey() function
 	 *
-	 * @param string $key which key to return: 'payments', 'profiles', 'reporting' 
 	 * @return string api key
 	 */
-	public function getApiKey($key) {
-		return $this->_apiKeys[$key];
+	public function getApiKey() {
+		return $this->_apiKey;
 	}
 
 	/**
 	 * setPlatform() function
 	 * 
-	 * @param string[] $platform
+	 * @param string $platform
 	 * @return void
 	 */
 	public function setPlatform($platform = '') {
@@ -111,7 +105,7 @@ class Configuration {
 	/**
 	 * setApiVersion() function
 	 * 
-	 * @param string[] $version
+	 * @param string $version
 	 * @return void
 	 */
 	public function setApiVersion($version = '') {

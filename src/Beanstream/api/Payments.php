@@ -7,28 +7,13 @@
  */
 class Payments {
 
-    /**
-     * Base64 Encoded Auth String for Payments API
-     * 
-     * @var string $_auth
-     */
-	protected $_auth;
 
     /**
-     * Built Payments Endpoint 
+     * Payments Endpoint object
      * 
      * @var string $_endpoint
      */	
 	protected $_endpoint;
-
-	/**
-     * Config object
-	 * 
-	 * Holds mid, apikeys[], platform, api version
-     * 
-     * @var	\Beanstream\Configuration	$_config
-     */
-	protected $_config;
 
 	/**
      * HttpConnector object
@@ -36,7 +21,6 @@ class Payments {
      * @var	\Beanstream\HttpConnector	$_connector
      */	
 	protected $_connector;
-
 	
     /**
      * Constructor
@@ -48,17 +32,11 @@ class Payments {
      */
 	function __construct(Configuration $config) {
 		
-		//get/set config
-		$this->_config = $config;
-		
-		//set encoded payments auth 
-		$this->_auth = base64_encode($this->_config->getMerchantId().':'.$this->_config->getApiKey('payments'));
-		
 		//init endpoint
-		$this->_endpoint = new Endpoints($this->_config->getPlatform(), $this->_config->getApiVersion());
+		$this->_endpoint = new Endpoints($config->getPlatform(), $config->getApiVersion());
 		
 		//init http connector
-		$this->_connector = new HttpConnector($this->_auth);
+		$this->_connector = new HttpConnector(base64_encode($config->getMerchantId().':'.$config->getApiKey()));
 		
 	}
 	
@@ -71,6 +49,7 @@ class Payments {
      * @return array Transaction details
      */
 	public function makePayment($data = NULL) {
+		
 		//build endpoint
 		$endpoint =  $this->_endpoint->getBasePaymentsURL();
 		

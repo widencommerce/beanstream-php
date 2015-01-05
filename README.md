@@ -41,20 +41,16 @@ from Beanstream.
 <?php
 
 $merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
-$api_keys = array(
-	'payments' => '', //INSERT PAYMENTS API KEY (if required)
-	'profiles' => '', //INSERT PROFILES API KEY (if required)
-	'reporting' => '' //INSERT REPORTING API KEY (if required)
-	);
+$api_key = ''; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
 $platform = 'www'; //default
 
 //Create Beanstream Gateway
-$beanstream = new Beanstream\Gateway($merchant_id, $api_keys, $platform, $api_version);
+$beanstream = new Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
 
 //Example Card Payment Data
 $payment_data = array(
-        'order_number' => 1234567890,
+        'order_number' => 'a1b2c3',
         'amount' => 1.00,
         'payment_method' => 'card',
         'card' => array(
@@ -93,16 +89,15 @@ See examples.php for more examples.
 
 ### Authentication
 
-Beanstream defines separate API access passcodes for payment, profile and search requests. API Passcodes
-are configured via the Beanstream dashboard (See *administration -> account settings -> order settings* 
+Beanstream defines separate API access passcodes for payment, profile and reporting API requests. It is possible 
+to use the same value for all of them, and create a single instance of \Beanstream\Gateway. You can also 
+initialize separate \Beanstream\Gateway instances for each type of request.  API access passcodes are 
+configured via the Beanstream dashboard (See *administration -> account settings -> order settings* 
 for payment and search passcodes, *configuration -> payment profile configuration* for profile passcode).
-API passcodes are held in the $api_keys array as values for the follwing keys 'payments', 'profiles', 'reporting'.
-If you do not wish to use certain API features, you may leave that specific API Passcode blank in the $api_keys
-array. You can also initialize separate Beanstream\Gateway instances for each type of request.
 
 
 ### Billing Address Province
 
-Beanstream requires *province* filed submitted along with *billing* data to be two-letter code. It only requires it when
-spedified *country* is *US* or *CA*, for other country codes set it to *--* even if corresponding country does have states
-or provinces.
+Beanstream requires the *province* field submitted along with *billing* data to be a two-letter code. It only requires it when
+the specified *country* is *US* or *CA*, for other country codes set it to *--* (two dashes) even if the corresponding country 
+does have states or provinces.

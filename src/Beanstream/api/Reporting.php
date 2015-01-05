@@ -7,29 +7,14 @@
  * @author Kevin Saliba
  */
 class Reporting {
-	
-    /**
-     * Base64 Encoded Auth String for Reporting API
-     * 
-     * @var string $_auth
-     */
-	protected $_auth;
+
 
     /**
-     * Built Reporting Endpoint 
+     * Reporting Endpoint object
      * 
      * @var string $_endpoint
      */	
 	protected $_endpoint;
-
-	/**
-     * Config object
-	 * 
-	 * Holds mid, apikeys[], platform, api version
-     * 
-     * @var	\Beanstream\Configuration	$_config
-     */
-	protected $_config;
 
 	/**
      * HttpConnector object
@@ -48,18 +33,12 @@ class Reporting {
      * @param \Beanstream\Configuration $config
      */
 	function __construct(Configuration $config) {
-		
-		//get/set config
-		$this->_config = $config;
-		
-		//get encoded reporting auth 
-		$this->_auth = base64_encode($this->_config->getMerchantId().':'.$this->_config->getApiKey('reporting'));
-		
+
 		//init endpoint
-		$this->_endpoint = new Endpoints($this->_config->getPlatform(), $this->_config->getApiVersion());
+		$this->_endpoint = new Endpoints($config->getPlatform(), $config->getApiVersion());
 		
 		//init http connector
-		$this->_connector = new HttpConnector($this->_auth);
+		$this->_connector = new HttpConnector(base64_encode($config->getMerchantId().':'.$config->getApiKey()));
 		
 	}
 	
@@ -97,9 +76,6 @@ class Reporting {
 		//get reporting endpoint
 		$endpoint =  $this->_endpoint->getPaymentUrl($transaction_id);
 
-		//DEBUG
-		//print_r($endpoint);die();
-				
 		//process as is
 		$result = $this->_connector->processTransaction('GET', $endpoint, NULL);
 

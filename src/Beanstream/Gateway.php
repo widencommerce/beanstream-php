@@ -20,7 +20,7 @@ class Gateway {
 	/**
      * Config object
 	 * 
-	 * Holds mid, apikeys[], platform, api version
+	 * Holds mid, apikey, platform, api version
      * 
      * @var	\Beanstream\Configuration	$_config
      */
@@ -45,15 +45,15 @@ class Gateway {
      * Constructor
      * 
      * @param string $merchantId Merchant ID
-     * @param string[] $apiKeys API Access Passcodes array
+     * @param string $apiKey API Access Passcode
      * @param string $platform API Platform (default 'www')
      * @param string $version API Version (default 'v1')
      */
-    public function __construct($merchantId = '', $apiKeys = array(), $platform, $version) {
+    public function __construct($merchantId = '', $apiKey, $platform, $version) {
 		//set configs
 		$this->_config = new Configuration();
 		$this->_config->setMerchantId($merchantId);
-		$this->_config->setApiKeys($apiKeys);
+		$this->_config->setApiKey($apiKey);
 		$this->_config->setPlatform($platform);
 		$this->_config->setApiVersion($version);
     }

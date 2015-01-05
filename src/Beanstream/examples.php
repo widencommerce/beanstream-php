@@ -1,32 +1,27 @@
 <?php
 //BEANSTREAM REST API SDK USAGE EXAMPLES	
 
-
 //get Beanstream Gateway
 require_once 'Gateway.php';
 
-//init api settings (beasntream dashboard > administration > account settings > order settings)
-$merchant_id = ''; //INSERT MERCHANT ID //must be a 9 digit string
-$api_keys = array(
-	'payments' => '', //INSERT PAYMENTS API KEY
-	'profiles' => '', //INSERT PROFILES API KEY
-	'reporting' => '' //INSERT REPORTING API KEY
-	);
+//init api settings (beanstream dashboard > administration > account settings > order settings)
+$merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
+$api_key = ''; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
 $platform = 'www'; //default
 
 
-//generate a random order number, and set a default $amount (only used for example methods)
+//generate a random order number, and set a default $amount (only used for example functions)
 $order_number = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
 $amount = 1.00;
 
 
 //init new Beanstream Gateway object
-$beanstream = new Beanstream\Gateway($merchant_id, $api_keys, $platform, $api_version);
+$beanstream = new \Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
 
 
 
-//example array data for use in example methods
+//example array data for use in example functions
 
 //example payment transaction data
 $payment_data = array(
@@ -63,7 +58,7 @@ $payment_data = array(
 );
 
 
-//example profile method test vars
+//example profile function test vars
 $profile_id = ''; //enter a profile_id to get a profile
 $card_id = '1'; //default card, 1-based index
 
@@ -131,13 +126,13 @@ $search_criteria = array(
      )
 );
 	
-//example payment method test vars
+//example payment function test vars
 $transaction_id = ''; //enter a transaction id to use in below functions
 $complete = TRUE;
 
 
 
-//REQUEST EXAMPLE METHODS BELOW
+//REQUEST EXAMPLE FUNCTIONS BELOW
 //UNCOMMENT THE ONES YOU WOULD LIKE TO TEST 
 
 try {
@@ -174,7 +169,7 @@ try {
 	
 	//**** PROFILES EXAMPLES
 
-	//create a profile with a card
+	//create a profile
 	//$profile_id = $beanstream->profiles()->createProfile($profile_data);
 	
 	//get a profile based on a profile cust code
@@ -212,12 +207,11 @@ try {
 	
 	//**** REPORTING EXAMPLES
 	
-	//search for transactions that match criteria //DOESN'T RETURN ALL TX (ie. VP/VR)
+	//search for transactions that match criteria //DOESN'T RETURN ALL TX (ie. VP/VR)?
 	//$result = $beanstream->reporting()->getTransactions($search_criteria);
 	
-	//get a specific transaction //NOT WORKING?
+	//get a specific transaction
 	//$result = $beanstream->reporting()->getTransaction($transaction_id);
-	
 
 	
 	//display result
