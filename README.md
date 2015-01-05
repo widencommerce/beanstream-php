@@ -46,7 +46,7 @@ $api_version = 'v1'; //default
 $platform = 'www'; //default
 
 //Create Beanstream Gateway
-$beanstream = new Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
+$beanstream = new \Beanstream\Gateway($merchant_id, $api_key, $platform, $api_version);
 
 //Example Card Payment Data
 $payment_data = array(
