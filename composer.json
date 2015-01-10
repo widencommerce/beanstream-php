@@ -7,7 +7,10 @@
         {
             "name": "Pavel Kulbakin",
             "email": "p.kulbakin@gmail.com"
-        }
+        },
+        {
+			"name": "Kevin Saliba"
+	    }
     ],
     "require": {
         "php": ">=5.3.0"
