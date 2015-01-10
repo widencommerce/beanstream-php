@@ -75,6 +75,7 @@ $profile_data = array(
         'country' => 'CA'
 		)
 	);
+
 //example card data to add to a profile
 $card_data = array(
     'card' => array(
@@ -86,8 +87,20 @@ $card_data = array(
 		)
 	);
 
-
-
+//example unreferenced return data
+$return_data = array(
+		'order_number' => $order_number,
+        'amount' => $amount,
+        'payment_method' => 'card',
+        'card' => array(
+            'name' => 'Mr. Refund Testerson',
+            'number' => '4030000010001234',
+            'expiry_month' => '07',
+            'expiry_year' => '22',
+            'cvd' => '123'
+        )
+	);
+	
 //example profile payment data
 $profile_payment_data = array(
     'order_number' => $order_number, 
@@ -154,6 +167,9 @@ try {
 	
 	//return a payment
 	//$result = $beanstream->payments()->returnPayment($transaction_id, $amount, $order_number);
+	
+	//return a payment (unreferenced)
+	//$result = $beanstream->payments()->unreferencedReturn($return_data);
 	
 	//void a payment
 	//$result = $beanstream->payments()->voidPayment($transaction_id, $amount);

@@ -23,6 +23,14 @@ class Payments {
 	protected $_connector;
 	
     /**
+     *  Merchant ID holder (used for unreferenced return only)
+     * 
+     * @var string $_merchantId
+     */
+	protected $_merchantId;
+	
+	
+    /**
      * Constructor
      * 
 	 * Inits the appropriate endpoint and httpconnector objects 
@@ -37,6 +45,9 @@ class Payments {
 		
 		//init http connector
 		$this->_connector = new HttpConnector(base64_encode($config->getMerchantId().':'.$config->getApiKey()));
+		
+		//set merchant id from config (only needed for unreferenced return)
+		$this->_merchantId = $config->getMerchantId();
 		
 	}
 	
@@ -168,6 +179,26 @@ class Payments {
         }
 	
 		//process return
+		return $this->_connector->processTransaction('POST', $endpoint, $data);
+    }
+
+    /**
+     * unreferencedReturn() function (aka unreferenced refund)
+     * @link http://developer.beanstream.com/documentation/take-payments/unreferenced-return/
+     * 
+     * @param array $data Return data (card or swipe)
+     * @return array Transaction details
+     */
+    public function unreferencedReturn($data) {
+
+		//get endpoint
+		$endpoint =  $this->_endpoint->getUnreferencedReturnsURL();
+
+        //set merchant id (not sure why it's only needed here)
+        $data['merchant_id'] = $this->_merchantId;
+
+		
+		//process unreferenced return as is(could be card or swipe)
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
     }
 	

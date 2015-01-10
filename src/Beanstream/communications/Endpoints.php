@@ -35,6 +35,7 @@ class Endpoints {
 	protected $baseProfilesURL;
 	protected $preAuthCompletionsURL;
 	protected $returnsURL;
+	protected $unreferencedReturnsURL;
 	protected $voidsURL;
 	protected $profileURI;
 	protected $cardsURI;
@@ -70,6 +71,7 @@ class Endpoints {
 		$this->basePaymentsURL = self::BASE_URL . '/{1}/payments';
 		$this->preAuthCompletionsURL = $this->basePaymentsURL . '/{2}/completions';
 		$this->returnsURL = $this->basePaymentsURL . '/{2}/returns';
+		$this->unreferencedReturnsURL = $this->basePaymentsURL . '/0/returns';
 		$this->voidsURL = $this->basePaymentsURL . '/{2}/void';
 		$this->continuationsURL = $this->basePaymentsURL . '/{2}/continue';
 		$this->tokenizationURL = 'https://{0}.beanstream.com/scripts/tokenization/tokens';
@@ -123,6 +125,16 @@ class Endpoints {
 	public function getReturnsURL($tid) {
 		//parse url and replace variables via messageformat
 		return msgfmt_format_message('en_US', $this->returnsURL, array($this->_platform, $this->_version, $tid));
+	}
+
+	/**
+	 * getUnreferencedReturnsURL() function
+	 * 
+	 * @return string Endpoint URL
+	 */			
+	public function getUnreferencedReturnsURL() {
+		//parse url and replace variables via messageformat
+		return msgfmt_format_message('en_US', $this->unreferencedReturnsURL, array($this->_platform, $this->_version, $tid));
 	}
 
 	/**
