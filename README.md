@@ -3,6 +3,9 @@ Beanstream PHP API
 
 Composer ready PHP wrapper for [Beanstream API](http://developer.beanstream.com/documentation/).
 
+## Help Contribute
+Send us pull requests and help improve the code, and we will send you a t-shirt.
+
 ## Installation
 
 The recommended way to install the library is using [Composer](https://getcomposer.org).
