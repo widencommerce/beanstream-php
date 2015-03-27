@@ -43,6 +43,8 @@ from Beanstream.
 ```php
 <?php
 
+require 'vendor/autoload.php';
+
 $merchant_id = ''; //INSERT MERCHANT ID (must be a 9 digit string)
 $api_key = ''; //INSERT API ACCESS PASSCODE
 $api_version = 'v1'; //default
