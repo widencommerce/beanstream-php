@@ -10,12 +10,22 @@ Send us pull requests and help improve the code, and we will send you a t-shirt.
 
 The recommended way to install the library is using [Composer](https://getcomposer.org).
 
+1) Add this json to your composer.json file:
 ```json
 {
     "require": {
         "beanstream/beanstream": "dev-master"
     }
 }
+```
+
+2) Next, run this from the command line:
+```
+composer install
+```
+3) Finally, add this line to your php file that will be using the SDK:
+```
+require 'vendor/autoload.php';
 ```
 
 ## Handling Exceptions
