@@ -102,7 +102,10 @@ class Endpoints {
 	 */	
 	public function getBasePaymentsURL() {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->basePaymentsURL, array($this->_platform, $this->_version));
+		//return msgfmt_format_message('en_US', $this->basePaymentsURL, array($this->_platform, $this->_version));
+		
+		//or use less-stringent str_replace instead of msgfmt above
+		return str_replace(array('{0}', '{1}'), array($this->_platform, $this->_version), $this->basePaymentsURL);
 	}
 	
 	/**
@@ -113,7 +116,10 @@ class Endpoints {
 	 */		
 	public function getPreAuthCompletionsURL($tid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->preAuthCompletionsURL, array($this->_platform, $this->_version, $tid));
+		//return msgfmt_format_message('en_US', $this->preAuthCompletionsURL, array($this->_platform, $this->_version, $tid));
+		
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $tid), $this->preAuthCompletionsURL);
 	}
 
 	/**
@@ -124,7 +130,10 @@ class Endpoints {
 	 */			
 	public function getReturnsURL($tid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->returnsURL, array($this->_platform, $this->_version, $tid));
+		//return msgfmt_format_message('en_US', $this->returnsURL, array($this->_platform, $this->_version, $tid));
+	
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $tid), $this->returnsURL);
 	}
 
 	/**
@@ -134,7 +143,10 @@ class Endpoints {
 	 */			
 	public function getUnreferencedReturnsURL() {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->unreferencedReturnsURL, array($this->_platform, $this->_version, $tid));
+		//return msgfmt_format_message('en_US', $this->unreferencedReturnsURL, array($this->_platform, $this->_version));
+	
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}'), array($this->_platform, $this->_version), $this->unreferencedReturnsURL);
 	}
 
 	/**
@@ -145,7 +157,10 @@ class Endpoints {
 	 */		
 	public function getVoidsURL($tid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->voidsURL, array($this->_platform, $this->_version, $tid));
+		//return msgfmt_format_message('en_US', $this->voidsURL, array($this->_platform, $this->_version, $tid));
+	
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $tid), $this->voidsURL);
 	}
 	
 	/**
@@ -155,7 +170,10 @@ class Endpoints {
 	 */		
 	public function getTokenURL() {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->tokenizationURL, array($this->_platform));
+		//return msgfmt_format_message('en_US', $this->tokenizationURL, array($this->_platform));
+
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}'), array($this->_platform), $this->tokenizationURL);
 	}
 
 	
@@ -168,7 +186,10 @@ class Endpoints {
 	 */
 	public function getProfilesURL() {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->baseProfilesURL, array($this->_platform, $this->_version));
+		//return msgfmt_format_message('en_US', $this->baseProfilesURL, array($this->_platform, $this->_version));
+
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}'), array($this->_platform, $this->_version), $this->baseProfilesURL);
 	}
 	
 	/**
@@ -179,7 +200,10 @@ class Endpoints {
 	 */
 	public function getProfileURI($pid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->profileURI, array($this->_platform, $this->_version, $pid));
+		//return msgfmt_format_message('en_US', $this->profileURI, array($this->_platform, $this->_version, $pid));
+	
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $pid), $this->profileURI);
 	}
 	
 	/**
@@ -190,7 +214,10 @@ class Endpoints {
 	 */
 	public function getCardsURI($pid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->cardsURI, array($this->_platform, $this->_version, $pid));
+		//return msgfmt_format_message('en_US', $this->cardsURI, array($this->_platform, $this->_version, $pid));
+		
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $pid), $this->cardsURI);
 	}
 	
 	/**
@@ -202,7 +229,10 @@ class Endpoints {
 	 */
 	public function getCardURI($pid, $cid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->cardURI, array($this->_platform, $this->_version, $pid, $cid));
+		//return msgfmt_format_message('en_US', $this->cardURI, array($this->_platform, $this->_version, $pid, $cid));
+		
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}', '{3}'), array($this->_platform, $this->_version, $pid, $cid), $this->cardURI);
 	}
 
 	
@@ -215,7 +245,10 @@ class Endpoints {
 	 */
 	public function getReportingURL() {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->reportsURL, array($this->_platform, $this->_version));
+		//return msgfmt_format_message('en_US', $this->reportsURL, array($this->_platform, $this->_version));
+
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}'), array($this->_platform, $this->_version), $this->reportsURL);
 	}
 
 	/**
@@ -226,7 +259,10 @@ class Endpoints {
 	 */		
 	public function getPaymentUrl($tid) {
 		//parse url and replace variables via messageformat
-		return msgfmt_format_message('en_US', $this->getPaymentURL, array($this->_platform, $this->_version, $tid));
+		//return msgfmt_format_message('en_US', $this->getPaymentURL, array($this->_platform, $this->_version, $tid));
+	
+		//or use less-stringent str_replace instead of messageformat above
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $tid), $this->getPaymentURL);
 	}
 	
 }
