@@ -77,17 +77,6 @@ class Gateway {
 	 * @return \Beanstream\Payments this gateway's payment api object
 	 */	
 	public function payments() {
-		return $this->getPaymentsApi();
-	}	
-
-	/**
-	 * getPaymentsApi() function
-	 * 
-	 * Internal function to return/create the payment object
-	 *
-	 * @return \Beanstream\Payments this gateway's payment api object, creates it if it doesn't exist
-	 */
-	private function getPaymentsApi() {
 		//check to see if we already have it created 
 		if (is_null($this->_paymentsAPI)) {
 			//if we don't, create it
@@ -105,17 +94,6 @@ class Gateway {
 	 * @return \Beanstream\Profiles this gateway's profiles api object
 	 */	
 	public function profiles() {
-		return $this->getProfilesApi();
-	}
-
-	/**
-	 * getProfilesApi() function
-	 * 
-	 * Internal function to return/create the profiles object
-	 *
-	 * @return \Beanstream\Profiles this gateway's profiles api object, creates it if it doesn't exist
-	 */
-	 private function getProfilesApi() {
 		//check to see if we already have it created 
 		if (is_null($this->_profilesAPI)) {
 			//if we don't, create it
@@ -134,17 +112,6 @@ class Gateway {
 	 * @return \Beanstream\Reporting this gateway's reporting api object
 	 */	
 	public function reporting() {
-		return $this->getReportingApi();
-	}	
-
-	/**
-	 * getReportingApi() function
-	 * 
-	 * Internal function to return/create the reporting object
-	 *
-	 * @return \Beanstream\Reporting this gateway's reporting api object, creates it if it doesn't exist
-	 */
-	private function getReportingApi() {
 		//check to see if we already have it created 
 		if (is_null($this->_reportingAPI)) {
 			//if we don't, create it
