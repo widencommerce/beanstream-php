@@ -256,7 +256,9 @@ class Payments {
      * @link http://developer.beanstream.com/documentation/legato/server-to-server-integration-by-api/
      * 
      * @param array $data Order data
+     *
      * @return string Legato token
+     * @throws ApiException
      */
 	public function getTokenTest($data = NULL) {
 		

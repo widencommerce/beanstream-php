@@ -29,7 +29,7 @@ class HttpConnector {
      * processTransaction() function - Public facing function to send a request to an endpoint.
      * 
      * @param	string	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
-     * @param	string	$url	Incoming API Endpoint
+     * @param	string	$endpoint Incoming API Endpoint
 	 * @param	array 	$data Data for POST requests, not needed for GETs
      * @access	public
 	 * @return	array	Parsed API response from private request method
@@ -50,6 +50,8 @@ class HttpConnector {
      * @access	private
 	 * @return	array Parsed API response
 	 * 
+     * @throws ApiException
+     * @throws ConnectorException
      */
     private function request($http_method = NULL, $url, $data = NULL)
     {
