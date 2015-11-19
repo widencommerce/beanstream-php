@@ -107,6 +107,16 @@ class Endpoints {
 		//or use less-stringent str_replace instead of msgfmt above
 		return str_replace(array('{0}', '{1}'), array($this->_platform, $this->_version), $this->basePaymentsURL);
 	}
+
+	/**
+	 * getContinuationsURL() function
+	 * 
+     * @param string $merchant_data The IDEBIT_MERCHDATA value returned by the Interac response
+	 * @return string	Endpoint URL
+	 */	
+	public function getContinuationsURL($merchant_data) {
+		return str_replace(array('{0}', '{1}', '{2}'), array($this->_platform, $this->_version, $merchant_data), $this->continuationsURL);
+	}
 	
 	/**
 	 * getPreAuthCompletionsURL() function
