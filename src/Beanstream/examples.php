@@ -36,11 +36,11 @@ $payment_data = array(
             'cvd' => '123'
         ),
 	    'billing' => array(
-	        'name' => 'Billing Name',
-	        'email_address' => 'email@email.com',
+	        'name' => 'Mr. John Doe',
+	        'email_address' => 'johndoe@email.com',
 	        'phone_number' => '1234567890',
-	        'address_line1' => '456-123 Billing St.',
-	        'city' => 'Billingsville',
+	        'address_line1' => 'Main St.',
+	        'city' => 'Anytown',
 	        'province' => 'BC',
 	        'postal_code' => 'V8J9I5',
 	        'country' => 'CA'
