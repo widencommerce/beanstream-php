@@ -73,7 +73,7 @@ class HttpConnector {
 		
 		//set other curl options        
         curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($req, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($req, CURLOPT_TIMEOUT, 30);
         
 		//test ssl3 (remember to set platform to 'ssltest')
