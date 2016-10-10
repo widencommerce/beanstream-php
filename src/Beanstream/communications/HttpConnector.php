@@ -29,7 +29,7 @@ class HttpConnector {
      * processTransaction() function - Public facing function to send a request to an endpoint.
      * 
      * @param	string	$http_method HTTP method to use (defaults to GET if $data==null; defaults to PUT if $data!=null)
-     * @param	string	$url	Incoming API Endpoint
+     * @param	string	$endpoint Incoming API Endpoint
 	 * @param	array 	$data Data for POST requests, not needed for GETs
      * @access	public
 	 * @return	array	Parsed API response from private request method
@@ -50,6 +50,8 @@ class HttpConnector {
      * @access	private
 	 * @return	array Parsed API response
 	 * 
+     * @throws ApiException
+     * @throws ConnectorException
      */
     private function request($http_method = NULL, $url, $data = NULL)
     {
@@ -71,7 +73,7 @@ class HttpConnector {
 		
 		//set other curl options        
         curl_setopt($req, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($req, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($req, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($req, CURLOPT_TIMEOUT, 30);
         
 		//test ssl3 (remember to set platform to 'ssltest')

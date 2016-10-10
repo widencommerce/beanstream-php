@@ -88,6 +88,19 @@ class Payments {
 		//process card payment
 		return $this->_connector->processTransaction('POST', $endpoint, $data);
 	}
+
+    /**
+     * continuePayment() function - Complete an Interac Online transaction
+     * @link http://developer.beanstream.com/documentation/take-payments/purchases/interac-purchases/
+     * 
+     * @param array $data Order data
+     * @param bool $merchant_data The IDEBIT_MERCHDATA value returned by the Interac response
+	 * @return array Transaction details
+     */	
+     public function continuePayment($data = NULL, $merchant_data) {
+		$endpoint =  $this->_endpoint->getContinuationsURL($merchant_data);
+		return $this->_connector->processTransaction('POST', $endpoint, $data);
+	}
 	
     /**
      * complete() function - Pre-authorization completion
@@ -256,7 +269,9 @@ class Payments {
      * @link http://developer.beanstream.com/documentation/legato/server-to-server-integration-by-api/
      * 
      * @param array $data Order data
+     *
      * @return string Legato token
+     * @throws ApiException
      */
 	public function getTokenTest($data = NULL) {
 		

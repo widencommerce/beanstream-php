@@ -3,6 +3,7 @@
     "description": "Beanstream PHP API",
     "type": "library",
     "license": "MIT",
+    "version": "1.0.1",
     "authors": [
         {
             "name": "Pavel Kulbakin",

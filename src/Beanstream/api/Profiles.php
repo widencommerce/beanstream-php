@@ -168,6 +168,8 @@ class Profiles {
      * 
      * @param string $profile_id Profile Id
      * @param string $card_id Card Id
+     * @param array $data Card data
+     *
      * @return array Result
      */
     public function updateCard($profile_id, $card_id, $data) {

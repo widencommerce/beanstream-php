@@ -39,7 +39,8 @@ class Configuration {
 	 * setMerchantId() function
 	 *
 	 * @param string $merchantId
-	 * @return void
+	 *
+	 * @throws ConfigurationException
 	 */
 	public function setMerchantId($merchantId = '') {
 		//check to make sure string strlen is 9 containing only digits 0-9
