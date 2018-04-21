@@ -123,6 +123,6 @@ The default `$platform` value assigned is `'api'`, which sends your requests to 
 
 
 ### Ensuring TLS 1.2-Only Compatibility
-If you would like to test compatibility with the TLS 1.2-only environment, assign `$platform = 'tls12-api'`, instead of `'api'`; This will point your requests to the endpoint `'tls12-api.na.bambora.com'`. Please be advised that this endpoint is provided for a limited time, and is intended for integration compatibility testing only, and is not intended for any type of load tests. More details can be found on the [Bambora North America Knowledge Base](https://help.na.bambora.com/hc/en-us/articles/115015460087-TLS-Upgrade-TLS-1-2).
+If you would like to test compatibility with the LIVE TLS 1.2-only environment, assign `$platform = 'tls12-api'`, instead of `'api'`; This will point your requests to the endpoint `'tls12-api.na.bambora.com'`. Please be advised that this endpoint is provided for a limited time, and is intended for integration compatibility testing only, and is not intended for any type of load tests. More details can be found on the [Bambora North America Knowledge Base](https://help.na.bambora.com/hc/en-us/articles/115015460087-TLS-Upgrade-TLS-1-2).
 
 
