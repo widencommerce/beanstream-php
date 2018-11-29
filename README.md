@@ -1,10 +1,7 @@
-Beanstream PHP API
+Bambora PHP API
 ==================
 
-Composer ready PHP wrapper for [Beanstream API](http://developer.beanstream.com/documentation/).
-
-## Help Contribute
-Send us pull requests and help improve the code, and we will send you a t-shirt.
+Composer ready PHP wrapper for [Bambora NA Payment API](https://dev.na.bambora.com/docs/references/).
 
 ## Installation
 
@@ -33,9 +30,7 @@ require 'vendor/autoload.php';
 If the server returns an unexpected response or error, PHP API throws *\Beanstream\Exception*.
 
 Positive error codes correspond to Beanstream API errors, see
-[Take Payment Errors](http://developer.beanstream.com/documentation/take-payments/errors/),
-[Analyze Payment Errors](http://developer.beanstream.com/documentation/analyze-payments/errors/),
-[Tokenize Payments Errors](http://developer.beanstream.com/documentation/tokenize-payments/errors/).
+[Bambora NA Payment API](https://dev.na.bambora.com/docs/references/)
 
 Negative codes correspond to [cURL errors](http://curl.haxx.se/libcurl/c/libcurl-errors.html)
 (original cURL error codes are positive, in *\Beanstream\Exception* those are just reversed).
@@ -47,8 +42,6 @@ thus *try..catch* is recommended for intercepting and handling them, see example
 
 ## Your First Integration
 
-The sample below is an equivalent of original [example](http://developer.beanstream.com/documentation/your-first-integration/)
-from Beanstream.
 
 ```php
 <?php
