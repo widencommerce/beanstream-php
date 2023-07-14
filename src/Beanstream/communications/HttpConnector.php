@@ -114,7 +114,7 @@ class HttpConnector {
         }
         
 		//check for return errors from the API
-        if (isset($res['code']) && 1 < $res['code'] && !($req['http_code'] >= 200 && $req['http_code'] < 300)) {
+        if (isset($res['code']) && 1 < $res['code']/* && !($req['http_code'] >= 200 && $req['http_code'] < 300)*/) {
             throw new ApiException($res['message'], $res['code']);
         }
         
